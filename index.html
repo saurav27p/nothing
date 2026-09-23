@@ -8,22 +8,20 @@
   html, body {
     margin: 0;
     padding: 0;
-    min-height: 100%;
     background: #111;
     font-family: Arial, sans-serif;
     color: #fff;
   }
 
-  /* Login overlay */
+  /* Password screen */
   #loginBox {
-    position: fixed;
-    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
     background: #111;
-    z-index: 10;
+    text-align: center;
   }
   #loginBox h2 { margin: 0 0 15px; }
   input, button {
@@ -42,21 +40,15 @@
   button:hover { background: #45a049; }
   .error { color: #ff4d4d; margin-top: 10px; }
 
-  /* Image container (shown after login) */
+  /* Image content (shown after correct password) */
   #content {
     display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
     text-align: center;
+    padding: 20px;
   }
 
   #secretImage {
-    max-width: 95vw;
-    max-height: 85vh;
-    width: auto;
+    max-width: 100%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
@@ -95,7 +87,7 @@
     const input = document.getElementById("password").value;
     if (input === CORRECT_PASSWORD) {
       document.getElementById("loginBox").style.display = "none";
-      document.getElementById("content").style.display = "flex";
+      document.getElementById("content").style.display = "block";
     } else {
       document.getElementById("error").textContent = "Wrong password!";
     }
