@@ -8,10 +8,10 @@
   html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
     background: #111;
     font-family: Arial, sans-serif;
-    overflow: hidden;
+    color: #fff;
   }
 
   /* Login overlay */
@@ -23,7 +23,6 @@
     justify-content: center;
     align-items: center;
     background: #111;
-    color: #fff;
     z-index: 10;
   }
   #loginBox h2 { margin: 0 0 15px; }
@@ -43,21 +42,37 @@
   button:hover { background: #45a049; }
   .error { color: #ff4d4d; margin-top: 10px; }
 
-  /* Fullscreen image */
-  #secretImage {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: contain;   /* change to 'cover' to fill & crop */
-    background: #000;
+  /* Image container (shown after login) */
+  #content {
     display: none;
-    z-index: 5;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+  }
+
+  #secretImage {
+    max-width: 95vw;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  }
+
+  #caption {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #ddd;
+    letter-spacing: 1px;
   }
 </style>
 </head>
 <body>
 
+<!-- Password screen -->
 <div id="loginBox">
   <h2>Enter Password</h2>
   <input type="password" id="password" placeholder="Password" autofocus>
@@ -65,9 +80,13 @@
   <div class="error" id="error"></div>
 </div>
 
-<img id="secretImage"
-     src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3KT0Yq4Z8yNiVG1BBUb31uIFReRBU_4viQ7L1jLFF1U0qs_20GHxApISFln66DAU3hC2ikQaCidr_SVC4xRiXgpTr6l1ukACXciwMhadGQ3cKVNx7GuNsxbyacIGF2McU7RQbqZlyKXvr0DIEbf2eLQZXlKQ_7FdA33AZejs0l639ve7-tTOi0u84Py9j/s1600/1000202893.png"
-     alt="Secret Image">
+<!-- Image + caption (hidden until correct password) -->
+<div id="content">
+  <img id="secretImage"
+       src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3KT0Yq4Z8yNiVG1BBUb31uIFReRBU_4viQ7L1jLFF1U0qs_20GHxApISFln66DAU3hC2ikQaCidr_SVC4xRiXgpTr6l1ukACXciwMhadGQ3cKVNx7GuNsxbyacIGF2McU7RQbqZlyKXvr0DIEbf2eLQZXlKQ_7FdA33AZejs0l639ve7-tTOi0u84Py9j/s1600/1000202893.png"
+       alt="Secret Image">
+  <div id="caption">NPCH-23-2044 pragyaroot.com</div>
+</div>
 
 <script>
   const CORRECT_PASSWORD = "24682468";
@@ -76,15 +95,7 @@
     const input = document.getElementById("password").value;
     if (input === CORRECT_PASSWORD) {
       document.getElementById("loginBox").style.display = "none";
-      const img = document.getElementById("secretImage");
-      img.style.display = "block";
-
-      // Trigger real fullscreen (allowed because it's from a button click)
-      if (img.requestFullscreen) {
-        img.requestFullscreen().catch(() => {});
-      } else if (img.webkitRequestFullscreen) {
-        img.webkitRequestFullscreen();
-      }
+      document.getElementById("content").style.display = "flex";
     } else {
       document.getElementById("error").textContent = "Wrong password!";
     }
