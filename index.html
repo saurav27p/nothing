@@ -1,103 +1,360 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
-<meta charset="UTF-8">
-<title>Protected Image</title>
-<style>
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #111;
-    font-family: Arial, sans-serif;
-    color: #fff;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सामाजिक अध्ययन एकाइ ४ सामाजिक समस्या र समाधान पुनरावृत्ति</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* Password screen */
-  #loginBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #111;
-    text-align: center;
-  }
-  #loginBox h2 { margin: 0 0 15px; }
-  input, button {
-    padding: 12px 16px;
-    font-size: 16px;
-    border-radius: 6px;
-    border: none;
-    margin-top: 10px;
-  }
-  input { width: 220px; text-align: center; }
-  button {
-    background: #4CAF50;
-    color: #fff;
-    cursor: pointer;
-  }
-  button:hover { background: #45a049; }
-  .error { color: #ff4d4d; margin-top: 10px; }
+        body {
+            background: #fff;
+            font-family: 'Helvetica', 'Arial', 'Noto Sans Devanagari', sans-serif;
+            color: #000;
+            font-size: 16pt;
+            line-height: 1.55;
+            padding: 0.6cm;
+            max-width: 21cm;
+            margin: 0 auto;
+        }
 
-  /* Image content (shown after correct password) */
-  #content {
-    display: none;
-    text-align: center;
-    padding: 20px;
-  }
+        @page {
+            size: A4 portrait;
+            margin: 0.6cm;
+        }
 
-  #secretImage {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  }
+        .document-title {
+            font-size: 21pt;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1cm;
+            padding-bottom: 0.25cm;
+            border-bottom: 3px double #000;
+        }
 
-  #caption {
-    margin-top: 15px;
-    font-size: 18px;
-    color: #ddd;
-    letter-spacing: 1px;
-  }
-</style>
+        .section {
+            margin-bottom: 1.15cm;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 20pt;
+            font-weight: 700;
+            background: #000;
+            color: #fff;
+            padding: 0.2cm 0.4cm;
+            margin-bottom: 0.6cm;
+            letter-spacing: 0.3px;
+        }
+
+        .label {
+            font-size: 16pt;
+            font-weight: 700;
+            margin-top: 0.4cm;
+            margin-bottom: 0.2cm;
+            padding-left: 0.3cm;
+            border-left: 5px solid #000;
+        }
+
+        .plain {
+            font-size: 16pt;
+            margin-bottom: 0.25cm;
+            line-height: 1.55;
+            text-align: justify;
+        }
+
+        .plain strong {
+            font-weight: 700;
+        }
+
+        .num-list {
+            list-style: none;
+            margin-bottom: 0.28cm;
+        }
+
+        .num-list li {
+            font-size: 16pt;
+            margin-bottom: 0.22cm;
+            padding-left: 0.85cm;
+            position: relative;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .num-list li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .num-list li strong {
+            font-weight: 700;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin-bottom: 0.28cm;
+        }
+
+        .bullet-list li {
+            font-size: 16pt;
+            margin-bottom: 0.2cm;
+            padding-left: 0.6cm;
+            position: relative;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .bullet-list li::before {
+            content: "·";
+            position: absolute;
+            left: 0.12cm;
+            font-weight: 700;
+            font-size: 18pt;
+        }
+
+        .bullet-list li strong {
+            font-weight: 700;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+                background: #fff;
+                color: #000;
+            }
+
+            .document-title {
+                font-size: 19pt;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                margin-bottom: 1cm;
+            }
+
+            .section-title {
+                font-size: 18pt;
+                background: #000 !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .label {
+                font-size: 15pt;
+            }
+
+            .num-list li,
+            .bullet-list li,
+            .plain {
+                font-size: 15pt;
+                margin-bottom: 0.18cm;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: #000 !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Password screen -->
-<div id="loginBox">
-  <h2>Enter Password</h2>
-  <input type="password" id="password" placeholder="Password" autofocus>
-  <button onclick="checkPassword()">Continue</button>
-  <div class="error" id="error"></div>
-</div>
+    <div class="document-title">सामाजिक अध्ययन एकाइ ४ सामाजिक समस्या र समाधान पुनरावृत्ति</div>
 
-<!-- Image + caption (hidden until correct password) -->
-<div id="content">
-  <img id="secretImage"
-       src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3KT0Yq4Z8yNiVG1BBUb31uIFReRBU_4viQ7L1jLFF1U0qs_20GHxApISFln66DAU3hC2ikQaCidr_SVC4xRiXgpTr6l1ukACXciwMhadGQ3cKVNx7GuNsxbyacIGF2McU7RQbqZlyKXvr0DIEbf2eLQZXlKQ_7FdA33AZejs0l639ve7-tTOi0u84Py9j/s1600/1000202893.png"
-       alt="Secret Image">
-  <div id="caption">NPCH-23-2044 / 6940503905 pragyaroot.com</div>
-</div>
+    <!-- ================= १ ================= -->
+    <div class="section">
+        <div class="section-title">१. मानव बेचबिखन</div>
 
-<script>
-  const CORRECT_PASSWORD = "24682468";
+        <div class="label">परिभाषा</div>
+        <p class="plain">बल, धम्की, प्रलोभन वा ठगीद्वारा व्यक्तिलाई अवैध रूपमा ल्याई–बेची शोषण गर्ने अपराध ।</p>
 
-  function checkPassword() {
-    const input = document.getElementById("password").value;
-    if (input === CORRECT_PASSWORD) {
-      document.getElementById("loginBox").style.display = "none";
-      document.getElementById("content").style.display = "block";
-    } else {
-      document.getElementById("error").textContent = "Wrong password!";
-    }
-  }
+        <div class="label">ऐन</div>
+        <p class="plain"><strong>मानव बेचबिखन तथा ओसारपसार (नियन्त्रण) ऐन, २०६४</strong></p>
 
-  // Press Enter to submit
-  document.getElementById("password").addEventListener("keydown", e => {
-    if (e.key === "Enter") checkPassword();
-  });
-</script>
+        <div class="label">सजाय</div>
+        <ul class="bullet-list">
+            <li><strong>किन्ने/बेच्ने</strong> — २० वर्ष कैद + २ लाख जरिवाना</li>
+            <li><strong>वेश्यावृत्तिमा लगाउने</strong> — १०–१५ वर्ष कैद + ५० हजार–१ लाख जरिवाना</li>
+            <li><strong>अङ्ग फिक्ने</strong> — १० वर्ष कैद + २–५ लाख जरिवाना</li>
+            <li><strong>विदेश लैजाने</strong> — १०–१५ वर्ष कैद + ५० हजार–१ लाख जरिवाना</li>
+            <li><strong>बालबालिका लगेमा</strong> — १५–२० वर्ष कैद + १–२ लाख जरिवाना</li>
+        </ul>
+
+        <div class="label">यसअन्तर्गत पर्ने</div>
+        <p class="plain">किनबेच, वेश्यावृत्ति, बालबेचबिखन, श्रमशोषण, जबरजस्ती विवाह, अङ्ग फिक्ने, यौन शोषण, देहव्यापार</p>
+
+        <div class="label">कारण</div>
+        <p class="plain">गरिबी, बेरोजगारी, अशिक्षा, कमजोर कानुन कार्यान्वयन, वैदेशिक रोजगारीको आकर्षण, प्राकृतिक विपत्ति, पारिवारिक समस्या</p>
+
+        <div class="label">प्रभाव</div>
+        <p class="plain">शारीरिक/मानसिक/आर्थिक शोषण, परिवार विखण्डन, अपराध वृद्धि, रोग/मृत्यु, देशको छवि खल्बलिने</p>
+
+        <div class="label">रोकथाम</div>
+        <p class="plain">जनचेतना, निगरानी, प्रहरीलाई खबर, पीडितलाई सहयोग, रोजगारी सृजना, कानुन कार्यान्वयन, सीमा नाकामा कडाइ</p>
+    </div>
+
+    <!-- ================= २ ================= -->
+    <div class="section">
+        <div class="section-title">२. यौन विकृति र विसङ्गति</div>
+
+        <div class="label">परिभाषा</div>
+        <p class="plain">समाजले स्वीकार नगर्ने, कानुनविपरीत वा अरूलाई हानि पु¥याउने यौन व्यवहार ।</p>
+
+        <div class="label">यसअन्तर्गत पर्ने</div>
+        <p class="plain">वेश्यावृत्ति, यौन शोषण, बलात्कार, अश्लील सामग्री, यौन दुर्व्यवहार, जबरजस्ती विवाह, यौन हिंसा, देहव्यापार</p>
+
+        <div class="label">कारण</div>
+        <p class="plain">इन्टरनेटको दुरुपयोग, यौन शिक्षाको कमी, कुसङ्गत, नैतिक शिक्षाको कमी, मानसिक तनाव, लागुपदार्थ, कानुनको कमजोर कार्यान्वयन</p>
+
+        <div class="label">प्रभाव</div>
+        <p class="plain">मानसिक तनाव, रोग, शारीरिक पीडा, शिक्षा अवरुद्ध, सामाजिक कलङ्क, परिवार विखण्डन, अपराध वृद्धि</p>
+
+        <div class="label">रोकथाम</div>
+        <p class="plain">यौन शिक्षा, परामर्श केन्द्र, कानुन कार्यान्वयन, सचेतना, स्वास्थ्य सेवा, सुरक्षित स्थान</p>
+    </div>
+
+    <!-- ================= ३ ================= -->
+    <div class="section">
+        <div class="section-title">३. घरेलु हिंसा</div>
+
+        <div class="label">परिभाषा</div>
+        <p class="plain">परिवारका सदस्यबिच हुने शारीरिक, मानसिक, आर्थिक वा यौनजन्य दुर्व्यवहार ।</p>
+
+        <div class="label">ऐन</div>
+        <p class="plain"><strong>घरेलु हिंसा (कसुर र सजाय) ऐन, २०६६</strong></p>
+
+        <div class="label">प्रकार (४)</div>
+        <p class="plain">शारीरिक, मानसिक, यौनजन्य, आर्थिक</p>
+
+        <div class="label">सजाय</div>
+        <p class="plain">कसुरको मात्रा हेरी ३ हजार–२५ हजार रुपियाँ जरिवाना र ६ महिनासम्म कैद वा दुवै</p>
+
+        <div class="label">कारण</div>
+        <p class="plain">मद्यपान, आर्थिक तनाव, अशिक्षा, दाइजो प्रथा, पितृसत्तात्मक सोच, पारिवारिक कलह, मानसिक समस्या, कानुनको कमजोर कार्यान्वयन</p>
+
+        <div class="label">प्रभाव</div>
+        <p class="plain">पारिवारिक विखण्डन, मानसिक तनाव, बालबालिकामा असर, सामाजिक अपराध, आर्थिक क्षति, स्वास्थ्य समस्या, शिक्षामा असर, सामाजिक कलङ्क</p>
+
+        <div class="label">रोकथाम</div>
+        <p class="plain">व्यक्ति सचेत हुने, मद्यपान त्याग्ने, सम्मान गर्ने, सचेतना फैलाउने, प्रहरीलाई खबर, कानुन कार्यान्वयन, परामर्श सेवा</p>
+    </div>
+
+    <!-- ================= ४ ================= -->
+    <div class="section">
+        <div class="section-title">४. भ्रष्टाचार</div>
+
+        <div class="label">परिभाषा</div>
+        <p class="plain">सार्वजनिक पद वा जिम्मेवारीमा रहेको व्यक्तिले अधिकारको दुरुपयोग गरी अनुचित लाभ लिने कार्य ।</p>
+
+        <div class="label">सूचकाङ्क</div>
+        <ul class="bullet-list">
+            <li><strong>सन् २०२४</strong> — ३४ अङ्क, १०७औं स्थान</li>
+            <li><strong>सन् २०२५</strong> — ३४ अङ्क, १८२ मुलुकमध्ये १०९औं स्थान</li>
+        </ul>
+
+        <div class="label">कारण</div>
+        <p class="plain">लोभ, कमजोर कानुन, राजनीतिक संरक्षण, गरिबी, नैतिकताको कमी, जनचेतनाको कमी, कमजोर निगरानी</p>
+
+        <div class="label">प्रभाव</div>
+        <p class="plain">आर्थिक विकास अवरुद्ध, सेवा प्रवाह प्रभावित, गरिबी वृद्धि, विश्वासको कमी, सामाजिक अपराध, देशको छवि, युवा पलायन, स्रोतको दुरुपयोग</p>
+
+        <div class="label">सामाजिक रोग किन ?</div>
+        <p class="plain">असमानता, गरिबी, विश्वासको कमी, अपराध वृद्धि</p>
+
+        <div class="label">रोकथाम</div>
+        <p class="plain">कानुनको कडा कार्यान्वयन, पारदर्शिता, नागरिक सचेतना, स्वतन्त्र अनुसन्धान, शून्य सहनशीलता, समन्वय, सुशासन</p>
+
+        <div class="label">प्रयास</div>
+        <p class="plain">अख्तियार दुरुपयोग अनुसन्धान आयोग, राष्ट्रिय सतर्कता केन्द्र, भ्रष्टाचार निवारण ऐन, सम्पत्ति शुद्धीकरण आयोग, सुशासन ऐन</p>
+    </div>
+
+    <!-- ================= ५ ================= -->
+    <div class="section">
+        <div class="section-title">५. अन्धविश्वास र सामाजिक कुरीति</div>
+
+        <div class="label">परिभाषा</div>
+        <p class="plain">परम्पराका नाममा समाजमा प्रचलित अन्धविश्वासमा आधारित हानिकारक अभ्यास ।</p>
+
+        <div class="label">प्रमुख कुरीति</div>
+        <p class="plain">घुम्टो प्रथा, छाउपडी प्रथा, दाइजो प्रथा, बोक्सीको आरोप, धामीझाँक्रीमा विश्वास</p>
+
+        <div class="label">कारण</div>
+        <p class="plain">अशिक्षा, अन्धविश्वास, गरिबी, पितृसत्तात्मक सोच, जनचेतनाको कमी</p>
+
+        <div class="label">असर</div>
+        <p class="plain">महिला हिंसा, सामाजिक विभेद, आर्थिक क्षति, परिवार विखण्डन</p>
+
+        <div class="label">रोकथाम</div>
+        <p class="plain">शिक्षा र जनचेतना, कानुनको कार्यान्वयन, महिला सशक्तीकरण, सामाजिक अभियान, विज्ञानको प्रचार</p>
+
+        <div class="label">दाइजोसम्बन्धी कानुन (मुलुकी अपराध संहिता, २०७४)</div>
+        <ul class="bullet-list">
+            <li>दाइजो माग्न वा दबाब दिन नपाइने (दफा १७४)</li>
+            <li>दाइजो माग्ने वा हैरान पार्नेलाई ३ वर्षसम्म कैद वा ३० हजार रुपियाँसम्म जरिवाना वा दुवै</li>
+            <li>दाइजोको रूपमा लिइसकेको सम्पत्ति महिलालाई नै फिर्ता गर्नुपर्ने</li>
+            <li>दाइजोको कारण हुने हिंसा/क्रूरता (दफा २५२) — ज्यान वा अङ्गभङ्गसम्बन्धी कडा फौजदारी कसूर</li>
+        </ul>
+    </div>
+
+    <!-- ================= ६ ================= -->
+    <div class="section">
+        <div class="section-title">६. सामाजिक समस्या पहिचान र समाधान सिप</div>
+
+        <div class="label">चरणहरू</div>
+        <ul class="bullet-list">
+            <li>समस्याको पहिचान</li>
+            <li>समस्याको विश्लेषण</li>
+            <li>विकल्पको खोजी</li>
+            <li>उत्तम विकल्पको छनोट</li>
+            <li>कार्यान्वयन</li>
+            <li>मूल्याङ्कन</li>
+        </ul>
+
+        <div class="label">सिपहरू</div>
+        <p class="plain">समस्या पहिचान, विश्लेषण, विकल्प छनोट, कार्यान्वयन, मूल्याङ्कन</p>
+    </div>
+
+    <!-- ================= ७ ================= -->
+    <div class="section">
+        <div class="section-title">७. अन्तर्राष्ट्रिय सङ्घसंस्था</div>
+
+        <div class="label">युनिसेफ</div>
+        <p class="plain">स्थापना सन् १९४६, नेपालमा सन् १९६४ देखि, बालबालिकाको हेरचाह/शिक्षा/स्वास्थ्य/पोषण/बाल अधिकार</p>
+
+        <div class="label">अन्तर्राष्ट्रिय श्रम सङ्गठन (ILO)</div>
+        <p class="plain">स्थापना सन् १९१९, बालश्रम उन्मूलन, श्रम कानुन, श्रमिक हकहित, सामाजिक सुरक्षा, तालिम</p>
+
+        <div class="label">ट्रान्सपरेन्सी इन्टरनेसनल</div>
+        <p class="plain">स्थापना सन् १९९३, मुख्यालय बर्लिन, भ्रष्टाचार अनुभूति सूचकाङ्क (सन् १९९५ देखि), घुस सूचकाङ्क (सन् १९९९ देखि)</p>
+
+        <div class="label">संयुक्त राष्ट्र जनसङ्ख्या कोष</div>
+        <p class="plain">स्थापना सन् १९६९, मुख्यालय न्युयोर्क, प्रजनन स्वास्थ्य र मातृ स्वास्थ्य</p>
+    </div>
+
+    <!-- ================= ८ ================= -->
+    <div class="section">
+        <div class="section-title">८. महत्त्वपूर्ण तथ्य (१० सेकेन्ड रिभिजन)</div>
+        <ul class="bullet-list">
+            <li>मानव बेचबिखन ऐन — २०६४</li>
+            <li>घरेलु हिंसा ऐन — २०६६</li>
+            <li>मुलुकी अपराध संहिता — २०७४ (दाइजोसम्बन्धी कानुन)</li>
+            <li>घरेलु हिंसा ४ प्रकार — शारीरिक, मानसिक, यौनजन्य, आर्थिक</li>
+            <li>नेपाल भ्रष्टाचार सूचकाङ्क (सन् २०२५) — ३४ अङ्क, १८२ मुलुकमध्ये १०९औं स्थान</li>
+            <li>ILO पूरा रूप — International Labour Organization</li>
+            <li>ट्रान्सपरेन्सी इन्टरनेसनल मुख्यालय — बर्लिन, जर्मनी</li>
+            <li>युनिसेफ स्थापना — सन् १९४६</li>
+        </ul>
+    </div>
 
 </body>
 </html>
