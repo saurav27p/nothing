@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preeti Font Page</title>
+  <style>
+    @font-face {
+      font-family: 'Preeti';
+      src: url('https://cdn.jsdelivr.net/gh/mhnpd/nepali-font@master/fonts/Preeti.TTF') format('truetype'),
+           url('https://cdn.jsdelivr.net/gh/blacpythoz/nepali-fonts@master/fonts/preeti.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
+    .preeti, #preeti {
+      font-family: 'Preeti', sans-serif;
+    }
+
+    textarea#preeti {
+      width: 100%;
+      height: 150px;
+      padding: 12px;
+      font-size: 28px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      box-sizing: border-box;
+      background-color: #ffffff;
+    }
+
+    .actions {
+      margin-top: 10px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      padding: 8px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background-color: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 10px;
+    }
+
+    .cell {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+
+    .glyph {
+      display: block;
+      font-size: 28px;
+      line-height: 1.3;
+    }
+
+    .code {
+      display: block;
+      font-family: monospace;
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Preeti Font Workspace</h1>
+  <p>Type using Preeti keystrokes in the box below or inspect reference characters.</p>
+
+  <label for="preeti">Editor</label>
+  <textarea id="preeti" placeholder="g]kfn"></textarea>
+
+  <div class="actions">
+    <button type="button" onclick="copyPreeti()">Copy Text</button>
+    <button type="button" onclick="clearPreeti()">Clear</button>
+  </div>
+
+  <h2>Sample Character Map</h2>
+  <div class="grid preeti">
+    <div class="cell"><span class="glyph">c</span><span class="code">c</span></div>
+    <div class="cell"><span class="glyph">cf</span><span class="code">cf</span></div>
+    <div class="cell"><span class="glyph">s</span><span class="code">s</span></div>
+    <div class="cell"><span class="glyph">v</span><span class="code">v</span></div>
+    <div class="cell"><span class="glyph">u</span><span class="code">u</span></div>
+    <div class="cell"><span class="glyph">3</span><span class="code">3</span></div>
+    <div class="cell"><span class="glyph">g</span><span class="code">g</span></div>
+    <div class="cell"><span class="glyph">k</span><span class="code">k</span></div>
+  </div>
+
+  <script>
+    const preetiInput = document.getElementById('preeti');
+
+    function copyPreeti() {
+      navigator.clipboard.writeText(preetiInput.value);
+    }
+
+    function clearPreeti() {
+      preetiInput.value = '';
+      preetiInput.focus();
+    }
+  </script>
+
+</body>
+</html>
 
