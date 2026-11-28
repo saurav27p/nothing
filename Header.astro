@@ -1,0 +1,44 @@
+---
+const nav = [
+  { label: "Home", href: "/" },
+  { label: "Class 10", href: "/class-10/" },
+  { label: "English", href: "/grammar/english/" },
+  { label: "About", href: "/about/" }
+];
+---
+<header class="site-header">
+  <a class="brand" href="/" aria-label="PragyaRoot home">
+    <span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span>PragyaRoot</span>
+  </a>
+  <nav class="desktop-nav" aria-label="Main navigation">
+    {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+  <div class="header-actions">
+    <a class="search-link" href="/search/" aria-label="Search">⌕ <span>Search</span></a>
+    <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><span class="theme-icon">◐</span></button>
+    <button class="menu-toggle" aria-expanded="false" aria-label="Open menu">☰</button>
+  </div>
+</header>
+<div class="mobile-nav" hidden>
+  {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+  <a href="/search/">Search resources</a>
+</div>
+<script>
+  const toggle = document.querySelector('.theme-toggle');
+  const menu = document.querySelector('.menu-toggle');
+  const mobile = document.querySelector('.mobile-nav');
+  const root = document.documentElement;
+  const saved = localStorage.getItem('pr-theme');
+  if (saved) root.dataset.theme = saved;
+  toggle?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('pr-theme', next);
+  });
+  menu?.addEventListener('click', () => {
+    const open = mobile?.hidden;
+    if (mobile) mobile.hidden = !open;
+    menu.setAttribute('aria-expanded', String(!!open));
+  });
+</script>

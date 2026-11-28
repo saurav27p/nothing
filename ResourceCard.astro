@@ -1,0 +1,9 @@
+---
+const { title, description, href, eyebrow = "RESOURCE", icon = "↗" } = Astro.props;
+---
+<a class="resource-card" href={href}>
+  <div class="card-meta"><span>{eyebrow}</span><span class="card-arrow">{icon}</span></div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="card-link">Explore <span>→</span></span>
+</a>
